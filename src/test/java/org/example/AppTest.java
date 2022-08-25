@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.pageObject.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,34 +19,10 @@ public class AppTest
 {
     @Test
     public void shouldAnswerWithTrue() {
-        System.setProperty(
-                "webdriver.chrome.driver",
-                "D:\\Elena\\ПРОЕКТЫ\\Testowanie\\EPAM szkolenie\\FirstTest\\src\\test\\resources\\webdriver\\chromedriver.exe"
-        );
-
-        WebDriver webDriver = new ChromeDriver();
-
-        webDriver.manage().window().maximize();
-        webDriver.get("https://github.com/login");
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.open()
 
 
-        WebElement logo = webDriver.findElement(By.xpath("//a[@class=\"header-logo\"]"));
-        Assert.assertTrue(logo.isDisplayed());
-
-        WebElement loginField = webDriver.findElement(By.id("login_field"));
-        loginField.sendKeys("ElenaQQQ");
-        WebElement passwordField = webDriver.findElement(By.id("password"));
-        passwordField.sendKeys("gtLen1105");
-        WebElement signInButton = webDriver.findElement(By.name("commit"));
-        signInButton.click();
-        WebElement profileDropDownButton = webDriver.findElement(By.xpath("//summary[@class=\"Header-link\"]/img"));
-        profileDropDownButton.click();
-
-
-        WebElement userInformationLabel = new WebDriverWait(webDriver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//strong[text()=\"ElenaQQQ\"]")));
-
-        Assert.assertEquals("ElenaQQQ", userInformationLabel.getText());
 
         webDriver.close();
         webDriver.quit();
@@ -60,7 +37,7 @@ public class AppTest
                 {"aaa","gtLen05"}
         };
     }
-
+//templayt comment
     @Test(dataProvider = "wrongCredentials")
     public void wrongCredencialsToLogin (String login, String password) {
         System.setProperty(
